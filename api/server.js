@@ -3,12 +3,20 @@ const morgan = require("morgan")
 const helmet = require("helmet")
 const cors = require("cors")
 
+const authRouter = require("../auth/auth-router")
+const categoriesRouter = require("../categories/categories-router")
+//const articlesRouter = require("../articles/articles-router")
+
 const server = express()
 
 server.use(helmet())
 server.use(express.json())
 server.use(morgan())
 server.use(cors())
+
+server.use("/auth", authRouter)
+server.use("/categories", categoriesRouter)
+//server.use("/articles", articlesRouter)
 
 server.get("/", (req, res, next) => {
     res.json({
