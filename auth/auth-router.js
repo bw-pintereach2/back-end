@@ -50,6 +50,8 @@ router.post("/register", async (req, res, next) => {
     }
   });
   
+
+  // auth-model
   async function add(user) {
     
       user.password = await bcrypt.hash(user.password, 10)
