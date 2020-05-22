@@ -1,5 +1,6 @@
 const Users = require("../auth/auth-router")
 const authenticate = require("../auth/authenticate-middleware")
+const db = require("../database/dbConfig")
 
 const router = require("express").Router()
 
@@ -23,6 +24,17 @@ router.get("/:id", authenticate(), async (req, res, next) => {
         res.json(user)
     } catch(err) {
         next(err)
+    }
+})
+
+router.get("/:id/articles", async (req, res, next) => {
+    try {
+        const user = await Users.findById(req.params.id)
+
+        if (user) {
+            user.articles = await db.getUserArticles(req.params.id)
+            let
+        }
     }
 })
 
