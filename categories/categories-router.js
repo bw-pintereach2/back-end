@@ -1,7 +1,8 @@
 const router = require("express").Router();
 const jwt = require("jsonwebtoken");
 const db = require("../database/dbConfig");
-const secrets = require("../config/secrets");const articlesRouter = require("../articles/articles-router");
+const secrets = require("../config/secrets");
+const articlesRouter = require("../articles/articles-router");
 
 
 router.use("/articles", articlesRouter);

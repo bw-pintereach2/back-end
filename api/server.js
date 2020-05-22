@@ -11,17 +11,14 @@ const server = express();
 
 server.use(helmet());
 server.use(cors());
+server.use(morgan())
 server.use(express.json());
-
-server.get('/', (req, res) => {
-    res.status(200).json({ api: 'running' });
-  });
 
 server.use('/api/auth', authRouter);
 server.use('/api/categories', authenticate, categoriesRouter);
 
 server.get("/", (req, res, next) => {
-    res.json({
+    res.status(200).json({
         message: "Welcome to the Pintereach API!",
     })
 })
