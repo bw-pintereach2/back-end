@@ -23,7 +23,6 @@ server.use('/api/categories', authenticate, categoriesRouter);
 server.get("/", (req, res, next) => {
     res.status(200).json({
         message: "Welcome to the Pintereach API!",
-        JWT_SECRET: `This is a test message: ${JWT_SECRET}`,
     })
 })
 
