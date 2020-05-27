@@ -6,7 +6,7 @@
   "scripts": {
     "test": "cross-env DB_ENV=testing jest --watch",
     "server": "cross-env DB_ENV=development nodemon index.js",
-    //"start": "cross-env NODE_ENV=production node index.js",
+    "start": "cross-env NODE_ENV=production node index.js",
     "migrate": "knex migrate:latest",
     "unmigrate": "knex migrate:rollback",
     "seed": "knex seed:run"
