@@ -45,9 +45,14 @@ router.get("/", (req, res) => {
 // Gets all articles for a category
 
 router.get(`/:id`, (req, res) => {
+  const token = req.headers.authorization;
+  const decoded = jwt.verify(token, secrets.jwt);
+
+  const user_id = decoded.subject;
+
   const id = req.params.id;
   db("articles")
-    .where({ id })
+    .where({ id, user_id })
     .then(articles => {
       res.json(articles);
     })
