@@ -1,6 +1,5 @@
-const Users = require("./users-model")
+const Users = require("../auth/auth-model")
 const authenticate = require("../auth/authenticate-middleware")
-const db = require("../database/dbConfig")
 
 const router = require("express").Router()
 
@@ -29,36 +28,38 @@ router.get("/:id", authenticate(), async (req, res, next) => {
     }
 })
 
-// Gets a user's articles
-router.get("/:id/articles", async (req, res, next) => {
-    try {
-        const user = await Users.findById(req.params.id)
+// Unsure if we'll use these yet 
 
-        if (user) {
-            user.articles = await db.getUserArticles(req.params.id)
-            let
-        }
-    } catch(err) {
-        next(err)
-    }
-})
+// // Gets a user's articles
+// router.get("/:id/articles", async (req, res, next) => {
+//     try {
+//         const user = await Users.findById(req.params.id)
 
-// Update a user
-router.put("/:id", authenticate(), async (req, res, next) => {
-    try {
-        const updateUser = await Users.updateUser(req.params.id)
+//         if (user) {
+//             user.articles = await db.getUserArticles(req.params.id)
+//             let
+//         }
+//     } catch(err) {
+//         next(err)
+//     }
+// })
 
-        if(!updateUser) {
-            res.status(404).json({
-                errorMessage: "User not found."
-            })
-        }
-        res.json(updateUser)
-    }
-    catch(err) {
-        next(err)
-    }
-})
+// // Update a user
+// router.put("/:id", authenticate(), async (req, res, next) => {
+//     try {
+//         const updateUser = await Users.updateUser(req.params.id)
+
+//         if(!updateUser) {
+//             res.status(404).json({
+//                 errorMessage: "User not found."
+//             })
+//         }
+//         res.json(updateUser)
+//     }
+//     catch(err) {
+//         next(err)
+//     }
+// })
 
 
 module.exports = router

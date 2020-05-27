@@ -5,8 +5,8 @@
   "main": "knexfile.js",
   "scripts": {
     "test": "cross-env DB_ENV=testing jest --watch",
-    "server": "node index.js",
-    "start": "node index.js",
+    "server": "nodemon -r dotenv/config index.js",
+    "start": "cross-env DB_ENV=production node index.js",
     "migrate": "knex migrate:latest",
     "unmigrate": "knex migrate:rollback",
     "seed": "knex seed:run"
