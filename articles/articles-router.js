@@ -7,12 +7,12 @@ router.post("/", async (req, res, next) => {
   
     db("articles")
     .insert(newArticle)
-    .then(exercise => {
-        res.json(exercise);
+    .then(article => {
+        res.json(article);
     })
     .catch(err => {
       console.log
-      res.status(500).json({ message: "Failed to submit exercise" + err });
+      res.status(500).json({ message: "Failed to submit article" + err });
     });
   });
 
