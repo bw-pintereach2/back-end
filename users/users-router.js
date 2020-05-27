@@ -1,4 +1,4 @@
-const Users = require("../auth/auth-router")
+const Users = require("./users-model")
 const authenticate = require("../auth/authenticate-middleware")
 const db = require("../database/dbConfig")
 
@@ -59,5 +59,6 @@ router.put("/:id", authenticate(), async (req, res, next) => {
         next(err)
     }
 })
+
 
 module.exports = router
