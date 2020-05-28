@@ -10,13 +10,16 @@ router.post("/register", async (req, res, next) => {
     try {
       const { username } = req.body
       const user = await Users.findBy({ username }).first()
-
+      console.log("register")
       if (user) {
         return res.status(409).json({
           message: "Username is already taken",
         })
       }
-      res.status(201).json(await Users.add(req.body))
+      console.log(user)
+      const newUser = await Users.add(req.body)
+      res.status(201).json(newUser)
+
     } catch(err) {
       next(err)
     }
