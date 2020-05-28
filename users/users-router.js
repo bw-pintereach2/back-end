@@ -1,10 +1,12 @@
-const Users = require("../auth/auth-model")
-const authenticate = require("../auth/authenticate-middleware")
+const router = require("express").Router();
+const jwt = require("jsonwebtoken");
+const db = require("../database/dbConfig");
+const secrets = require("../config/secrets");
+const Users = require("./users-model")
 
-const router = require("express").Router()
 
 // Gets users
-router.get("/", authenticate(), async (req, res, next) =>{
+router.get("/", async (req, res, next) =>{
     try {
         res.json(await Users.find())
     } catch(err) {
@@ -13,9 +15,10 @@ router.get("/", authenticate(), async (req, res, next) =>{
 })
 
 // Gets users by ID
-router.get("/:id", authenticate(), async (req, res, next) => {
+router.get("/:id", async (req, res, next) => {  
+    const id = req.params.id;
     try {
-        const user = await Users.findById(req.params.id)
+        const user = await Users.findById(id)
 
         if (!user) {
             res.status(404).json({
@@ -28,21 +31,31 @@ router.get("/:id", authenticate(), async (req, res, next) => {
     }
 })
 
-// Unsure if we'll use these yet 
+// Gets a user's articles
+router.get("/:id/articles", async (req, res, next) => {  
+    const id = req.params.id;
+    try {
+        const user = await Users.findById(id)
 
-// // Gets a user's articles
-// router.get("/:id/articles", async (req, res, next) => {
-//     try {
-//         const user = await Users.findById(req.params.id)
+        if (user) {
+            user.articles = await db.getUserArticles(id)
+            let
+        }
+    } catch(err) {
+        next(err)
+    }
+})
 
-//         if (user) {
-//             user.articles = await db.getUserArticles(req.params.id)
-//             let
-//         }
-//     } catch(err) {
-//         next(err)
-//     }
-// })
+// Update a user
+router.put("/:id", async (req, res, next) => {
+    const id = req.params.id;
+    try {
+        const updateUser = await Users.updateUser(id)
+
+    } catch(err) {
+        next(err)
+    }
+})
 
 // // Update a user
 // router.put("/:id", authenticate(), async (req, res, next) => {

@@ -4,9 +4,9 @@
   "description": "Authors: https://github.com/Amber-Pittman, https://github.com/mwoodiwiss",
   "main": "knexfile.js",
   "scripts": {
+    "server": "nodemon index.js",
     "test": "cross-env DB_ENV=testing jest --watch",
-    "server": "nodemon -r dotenv/config index.js",
-    "start": "cross-env DB_ENV=production node index.js",
+    "start": "node index.js",
     "migrate": "knex migrate:latest",
     "unmigrate": "knex migrate:rollback",
     "seed": "knex seed:run"
@@ -33,6 +33,7 @@
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.21.1",
     "morgan": "^1.10.0",
+    "dotenv": "^8.2.0",
     "sqlite3": "^4.2.0"
   },
   "devDependencies": {
