@@ -4,6 +4,7 @@ const db = require("../database/dbConfig");
 const secrets = require("../config/secrets");
 const Users = require("./users-model")
 
+
 // Gets users
 router.get("/", async (req, res, next) =>{
     try {
@@ -62,5 +63,6 @@ router.put("/:id", async (req, res, next) => {
         next(err)
     }
 })
+
 
 module.exports = router
