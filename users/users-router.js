@@ -52,17 +52,27 @@ router.put("/:id", async (req, res, next) => {
     try {
         const updateUser = await Users.updateUser(id)
 
-        if(!updateUser) {
-            res.status(404).json({
-                errorMessage: "User not found."
-            })
-        }
-        res.json(updateUser)
-    }
-    catch(err) {
+    } catch(err) {
         next(err)
     }
 })
+
+// // Update a user
+// router.put("/:id", authenticate(), async (req, res, next) => {
+//     try {
+//         const updateUser = await Users.updateUser(req.params.id)
+
+//         if(!updateUser) {
+//             res.status(404).json({
+//                 errorMessage: "User not found."
+//             })
+//         }
+//         res.json(updateUser)
+//     }
+//     catch(err) {
+//         next(err)
+//     }
+// })
 
 
 module.exports = router

@@ -1,5 +1,4 @@
-require("dotenv").config();
-const dbConnection = process.env.DATABASE_URL;
+//const dbConnection = process.env.DATABASE_URL;
 module.exports = {
   development: {
     client: "sqlite3",
@@ -18,7 +17,7 @@ module.exports = {
       afterCreate: (conn, done) => {
         conn.run("PRAGMA foreign_keys = ON", done);
       }
-    },
+     },
     testing: {
       client: "sqlite3",
       connection: {
