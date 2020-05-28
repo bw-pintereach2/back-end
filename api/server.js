@@ -6,18 +6,18 @@ const cors = require("cors")
 
 const authenticate = require('../auth/authenticate-middleware.js');
 const authRouter = require('../auth/auth-router.js');
-// const usersRouter = require("../users/users-router")
+const usersRouter = require("../users/users-router")
 const categoriesRouter = require('../categories/categories-router.js');
 
 const server = express();
 
 server.use(helmet());
 server.use(cors());
-//server.use(morgan())
+// server.use(morgan())
 server.use(express.json());
 
 server.use('/api/auth', authRouter);
-// server.use("/api/users", usersRouter)
+server.use("/api/users", usersRouter)
 server.use('/api/categories', authenticate, categoriesRouter);
 
 server.get("/", (req, res, next) => {

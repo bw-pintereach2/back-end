@@ -4,7 +4,7 @@
   "description": "Authors: https://github.com/Amber-Pittman, https://github.com/mwoodiwiss",
   "main": "knexfile.js",
   "scripts": {
-    "server": "node index.js",
+    "server": "nodemon index.js",
     "start": "node index.js"
   },
   "repository": {

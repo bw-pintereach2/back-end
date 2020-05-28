@@ -1,11 +1,11 @@
-const Users = require("../auth/auth-router")
-const authenticate = require("../auth/authenticate-middleware")
-const db = require("../database/dbConfig")
-
-const router = require("express").Router()
+const router = require("express").Router();
+const jwt = require("jsonwebtoken");
+const db = require("../database/dbConfig");
+const secrets = require("../config/secrets");
+const Users = require("./users-model")
 
 // Gets users
-router.get("/", authenticate(), async (req, res, next) =>{
+router.get("/", async (req, res, next) =>{
     try {
         res.json(await Users.find())
     } catch(err) {
@@ -14,9 +14,10 @@ router.get("/", authenticate(), async (req, res, next) =>{
 })
 
 // Gets users by ID
-router.get("/:id", authenticate(), async (req, res, next) => {
+router.get("/:id", async (req, res, next) => {  
+    const id = req.params.id;
     try {
-        const user = await Users.findById(req.params.id)
+        const user = await Users.findById(id)
 
         if (!user) {
             res.status(404).json({
@@ -30,12 +31,13 @@ router.get("/:id", authenticate(), async (req, res, next) => {
 })
 
 // Gets a user's articles
-router.get("/:id/articles", async (req, res, next) => {
+router.get("/:id/articles", async (req, res, next) => {  
+    const id = req.params.id;
     try {
-        const user = await Users.findById(req.params.id)
+        const user = await Users.findById(id)
 
         if (user) {
-            user.articles = await db.getUserArticles(req.params.id)
+            user.articles = await db.getUserArticles(id)
             let
         }
     } catch(err) {
@@ -44,9 +46,10 @@ router.get("/:id/articles", async (req, res, next) => {
 })
 
 // Update a user
-router.put("/:id", authenticate(), async (req, res, next) => {
+router.put("/:id", async (req, res, next) => {
+    const id = req.params.id;
     try {
-        const updateUser = await Users.updateUser(req.params.id)
+        const updateUser = await Users.updateUser(id)
 
         if(!updateUser) {
             res.status(404).json({
