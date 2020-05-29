@@ -3,10 +3,11 @@ const jwt = require("jsonwebtoken");
 const db = require("../database/dbConfig");
 const secrets = require("../config/secrets");
 const Users = require("./users-model")
+const restrict = require("../auth/authenticate-middleware")
 
 
-// Gets users
-router.get("/", async (req, res, next) =>{
+// Gets list of all users
+router.get("/", restrict("admin"), async (req, res, next) => {
     try {
         res.json(await Users.find())
     } catch(err) {
