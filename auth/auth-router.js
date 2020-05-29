@@ -15,41 +15,41 @@ router.post("/register", async (req, res, next) => {
       next(err)
     }
   })
-  
-  router.post("/login", async (req, res, next) => {
-    try {
-      const { username, password } = req.body;
-      const user = await db("users")
-        .where({ username })
-        .first();
-      const passwordValid = await bcrypt.compare(password, user.password);
-  
-      if (user && passwordValid) {
-        const token = jwt.sign(
-          {
-            subject: user.id,
-            username: user.username
-          },
-          secrets.jwt,
-          {
-            expiresIn: "1d"
-          }
-        );
-  
-        res.status(200).json({
-          message: `Welcome ${user.username}!`,
-          user_id: user.id,
-          token: token
-        });
-      } else {
-        res.status(401).json({
-          message: "Invalid Credentials"
-        });
-      }
-    } catch (err) {
-      next(err);
+
+router.post("/login", async (req, res, next) => {
+  try {
+    const { username, password } = req.body;
+    const user = await db("users")
+      .where({ username })
+      .first();
+    const passwordValid = await bcrypt.compare(password, user.password);
+
+    if (user && passwordValid) {
+      const token = jwt.sign(
+        {
+          subject: user.id,
+          username: user.username
+        },
+        secrets.jwtSecret,
+        {
+          expiresIn: "1d"
+        }
+      );
+
+      res.status(200).json({
+        message: `Welcome ${user.username}!`,
+        user_id: user.id,
+        token: token
+      });
+    } else {
+      res.status(401).json({
+        message: "Invalid Credentials"
+      });
     }
-  });
+  } catch (err) {
+    next(err);
+  }
+});
   
 
   // auth-model
