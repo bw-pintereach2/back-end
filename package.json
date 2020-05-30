@@ -6,11 +6,11 @@
   "scripts": {
     "server": "nodemon -r dotenv/config index.js",
     "test": "cross-env DB_ENV=testing jest --watch",
-    "start": "cross-env DB_ENV=production node index.js",
-    "dev": "nodemon -r dotenv/config index.js",
-    "migrate": "knex migrate:latest",
-    "unmigrate": "knex migrate:rollback",
-    "seed": "knex seed:run"
+    "start": "cross-env DB_ENV=production node index.js"
+    // "dev": "nodemon -r dotenv/config index.js",
+    // "migrate": "knex migrate:latest",
+    // "unmigrate": "knex migrate:rollback",
+    // "seed": "knex seed:run"
   },
   "repository": {
     "type": "git",
