@@ -3,11 +3,10 @@ const jwt = require("jsonwebtoken");
 const db = require("../database/dbConfig");
 const secrets = require("../config/secrets");
 const Users = require("./users-model")
-const restrict = require("../auth/authenticate-middleware")
 
 
-// Gets list of all users
-router.get("/", restrict("admin"), async (req, res, next) => {
+// Gets users
+router.get("/", async (req, res, next) =>{
     try {
         res.json(await Users.find())
     } catch(err) {
@@ -53,27 +52,17 @@ router.put("/:id", async (req, res, next) => {
     try {
         const updateUser = await Users.updateUser(id)
 
-    } catch(err) {
+        if(!updateUser) {
+            res.status(404).json({
+                errorMessage: "User not found."
+            })
+        }
+        res.json(updateUser)
+    }
+    catch(err) {
         next(err)
     }
 })
-
-// // Update a user
-// router.put("/:id", authenticate(), async (req, res, next) => {
-//     try {
-//         const updateUser = await Users.updateUser(req.params.id)
-
-//         if(!updateUser) {
-//             res.status(404).json({
-//                 errorMessage: "User not found."
-//             })
-//         }
-//         res.json(updateUser)
-//     }
-//     catch(err) {
-//         next(err)
-//     }
-// })
 
 
 module.exports = router
