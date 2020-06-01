@@ -65,14 +65,9 @@ router.get(`/:id`, (req, res) => {
 // Updates categories
 
 router.put(`/:id`, (req, res) => {
-  const token = req.headers.authorization;
-  const decoded = jwt.verify(token, secrets.jwt);
-
-  const user_id = decoded.subject;
-
   const id = req.params.id;
   db("categories")
-    .where({ id, user_id })
+    .where({ id })
     .update( req.body )
     .then(categories => {
       res.json(categories);
@@ -86,14 +81,9 @@ router.put(`/:id`, (req, res) => {
 // Deletes categories
 
 router.delete(`/:id`, (req, res) => {
-  const token = req.headers.authorization;
-  const decoded = jwt.verify(token, secrets.jwt);
-
-  const user_id = decoded.subject;
-  
   const id = req.params.id;
   db("categories")
-    .where({ id, user_id })
+    .where({ id })
     .del()
     .then(category => {
       res.json(category);
